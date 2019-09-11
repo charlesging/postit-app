@@ -1,13 +1,13 @@
 class PostsController < ApplicationController
   # set up instance variables
-  before_action :set_post, only: [:show, :edit, :update]
+  before_action :set_post, only: [:show, :edit, :update, :vote]
 
   # all actions need to require user (defined in application controller) EXCEPT for show and index actions
-  # this locked down the URL at the controller level
+  # this locks down the URL at the controller level
   before_action :require_user, except: [:show, :index]
 
   def index
-    @posts = Post.all
+    @posts = Post.all.sort_by { |x| x.total_votes }.reverse
   end
 
   def show
@@ -33,15 +33,23 @@ class PostsController < ApplicationController
   def edit; end
 
   def update
-    @post = Post.find(params[:id])
-
     if @post.update(post_params)
       flash[:notice] = "This post was updated."
       redirect_to post_path(@post)
     else
       render :edit
     end
+  end
 
+  def vote
+    # vote = params[:vote] == "true"
+    # @post.votes << Vote.create(vote: vote, user_id: current_user.id)
+    # flash[:notice] = "Your vote was counted."
+    # redirect_to posts_path
+
+    Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
+    flash[:notice] = "Your vote was counted."
+    redirect_to :back    
   end
 
   private

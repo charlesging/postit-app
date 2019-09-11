@@ -1,7 +1,5 @@
 Reddit Clone built with Rails & hosted on Heroku.
 
-== Demo[https://postitpostit.herokuapp.com/]
-
 ----
 
 == Getting Started

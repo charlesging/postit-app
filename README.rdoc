@@ -1,3 +1,9 @@
+Reddit Clone built with Rails & hosted on Heroku.
+
+== Demo[https://postitpostit.herokuapp.com/]
+
+----
+
 == Getting Started
 
 1. Make sure you have rails version 4. Type "rails -v" to make sure.
